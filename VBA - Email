@@ -1,0 +1,24 @@
+Sub Email(to_recipients As String, cc_recipients As String, subject As String, body As String, Optional attachment As String)
+Dim OutApp As Object
+Dim OutMail As Object
+
+    Set OutApp = CreateObject("Outlook.Application")
+    Set OutMail = OutApp.CreateItem(0)
+
+    On Error Resume Next
+    With OutMail
+        .to = to_recipients
+        .CC = cc_recipients
+        .BCC = ""
+        .subject = subject
+        .body = body
+        '.Attachments.Add ActiveWorkbook.FullName
+        'You can add other files also like this
+        '.Attachments.Add (attachment)
+        .Send   'or use .Display
+    End With
+    On Error GoTo 0
+
+    Set OutMail = Nothing
+    Set OutApp = Nothing
+End Sub
